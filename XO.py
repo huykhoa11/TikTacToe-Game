@@ -14,8 +14,8 @@ FNT = ("Times New Roman", 60)
 def masume():
 	cvs.delete("all")
 	for i in range(1, 3):
-		cvs.create_line(200*i, 0    , 200*i, 600  , fill="gray",width=8)
-		cvs.create_line(0    , 200*i, 600  , 200*i, fill="gray",width=8)
+		cvs.create_line(200*i, 0    , 200*i, 600  , fill="gray",width=8, smooth=True)
+		cvs.create_line(0    , 200*i, 600  , 200*i, fill="gray",width=8, smooth=True)
 	for y in range(3):
 		for x in range(3):
 			X = x*200
@@ -50,19 +50,39 @@ def click(e):
 		syouhai()
 		if shirushi < 9:
 			computer()
+			masume()
 
 def computer():
 	global shirushi
+
+	#3つ揃うマスがあるか
+	for y in range(3):
+		for x in range(3):
+			if masu[y][x] == 0:
+				masu[y][x] = 2
+				hantei()
+				if kachi == 2:
+					shirushi += 1
+					return
+				masu[y][x] = 0
+
+	for y in range(3):
+		for x in range(3):
+			if masu[y][x] == 0:
+				masu[y][x] = 1
+				hantei()
+				if kachi == 1:
+					masu[y][x] = 2
+					shirushi += 1
+					return
+				masu[y][x] = 0
+
 	while True:
 		x = random.randint(0, 2)
 		y = random.randint(0, 2)
 		if masu[y][x] == 0:
 			masu[y][x] = 2
 			shirushi += 1
-			masume()
-			time.sleep(0.3)
-			hantei()
-			syouhai()
 			break
 
 def hantei():
@@ -90,6 +110,7 @@ def hantei():
 	if kachi == 1:
 		root.title("O WIN")
 	if kachi == 2:
+		
 		root.title("X WIN")
 
 def syouhai():
