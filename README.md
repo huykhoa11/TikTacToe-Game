@@ -1,7 +1,7 @@
 # TikTacToe-Game
 Simple 3x3 Tik Tac Toe Game built in Tkinter.<br>
 Computer can check your move, not moving random.
-<br>
+<br><br>
 
 # How to run
 To run this project, please access current directory and run the command line below
